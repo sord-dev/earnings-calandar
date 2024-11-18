@@ -1,0 +1,106 @@
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    /* 7 columns for weekdays */
+    grid-gap: 10px;
+    /* Adjust gap as needed */
+
+    padding: 12px;
+}
+
+.calendar-grid-header {
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.calendar-grid-cell {
+    border: 1px solid #cccccc4f;
+    background-color: var(--color-secondary);
+    padding: 10px;
+
+    border-radius: 6px;
+}
+
+.calendar-grid-cell.today {
+    color: var(--text-secondary);
+    border-color: var(--color-primary);
+}
+
+.calendar-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    justify-content: space-between;
+
+    padding: 10px;
+}
+
+
+.calendar-header p {
+    font-weight: 600;
+}
+
+.calendar-header-controls {
+    display: flex;
+    gap: 4px;
+
+}
+
+.calendar-header-controls button {
+    padding: 8px;
+    border: none;
+    background-color: var(--color-primary);
+    color: var(--text-secondary);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+
+.earnings {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+
+    max-height: 300px;
+
+    overflow: auto;
+}
+
+.earnings-ticker {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    border-radius: 8px;
+    padding: 8px;
+
+    border: 1px solid #cccccc4f;
+}
+
+.earnings-ticker:hover {
+    border-color: var(--color-primary);
+}
+
+.earnings-ticker div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.earnings-ticker h4 {
+    margin: 0;
+    padding: 0;
+}
+
+.earnings-ticker div span {
+    opacity: .6;
+    font-size: 0.8rem;
+}
+
+.earnings-ticker p {
+    font-size: .8rem;
+}
