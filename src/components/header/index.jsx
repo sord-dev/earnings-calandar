@@ -3,15 +3,10 @@ import Bars from "../../assets/poortrim-bars.svg?react";
 
 import { TickerItem } from './partials';
 import { Outlet } from 'react-router-dom';
-import { useEffect } from 'react';
 
 export default function Header({
     pageTitle = 'Earnings Calander',
     watchListData = [] }) {
-
-        useEffect(() => {
-            console.log('watchListData', watchListData);
-        }, [watchListData]);
 
     return (
         <>
@@ -45,6 +40,7 @@ export default function Header({
 }
 
 export const renderTickers = (tickerData) => {
+    if(!tickerData.length) return null;
     return tickerData.map((ticker, index) => {
         const {price: { symbol, currencySymbol, regularMarketPrice, regularMarketChange } } = ticker;
         return <TickerItem key={index} ticker={symbol} price={currencySymbol+regularMarketPrice} change={regularMarketChange.toFixed(2) + '%'} />
