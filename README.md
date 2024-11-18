@@ -40,6 +40,7 @@ Personal project to track companies earnings and stock prices
 ### Current Views
 
 - **Earnings Calander**
+![image](https://github.com/user-attachments/assets/58e6948f-33c9-4deb-9d5b-216a4dd93a66)
 
 
 **To get started:**
