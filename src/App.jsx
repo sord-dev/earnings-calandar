@@ -1,37 +1,20 @@
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { Auth, CalendarPage } from './pages'
-import { Header } from './components'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { AsideNavbar, Header } from './components'
+
+import { useWatchListData } from './hooks';
 
 function App() {
-  const navigate = useNavigate()
-  const [watchListData, setWatchlistData] = useState([])
-
-  useEffect(() => {
-    const getWatchlistData = async () => {
-      try {
-        const response = await axios.get('http://localhost:3003/api/tickers', { withCredentials: true })
-        const data = response.data
-        console.log(data)
-        setWatchlistData(data)
-      } catch (error) {
-        if (error.response.status === 401) {
-          navigate('/authenticate')
-        } else {
-          console.log(error)
-        }
-      }
-    }
-    getWatchlistData()
-  }, [])
-
+  const { watchListData } = useWatchListData([])
 
   return (
     <div>
       <Routes>
         <Route element={<Header {...{ watchListData }} />} >
-          <Route path="/" element={<CalendarPage />} />
+          <Route element={<AsideNavbar />}>
+
+            <Route path="/" element={<CalendarPage />} />
+          </Route>
         </Route>
         <Route path="/authenticate" element={<Auth />} />
       </Routes>

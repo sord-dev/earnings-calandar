@@ -27,8 +27,7 @@ function Login() {
     };
 
     try {
-      const { token } = await login(data);
-      navigate('/', { state: { token } });
+      login(data); navigate('/');
     } catch (error) {
       console.error(error);
     }

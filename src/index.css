@@ -12,6 +12,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  --aside-offset: 270px;
 
   --color-primary: #0c0d22;
   --color-secondary: #dff6ff;
