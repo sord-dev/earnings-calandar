@@ -1,8 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Calendar, Header } from '../../components'
+import { Calendar } from '../../components'
 import { useNavigate } from 'react-router-dom'
-import SystemNotification from '../../components/system-notification'
 import NotificationTrey from '../../components/system-notification'
 
 

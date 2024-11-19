@@ -4,9 +4,19 @@ import Bars from "../../assets/poortrim-bars.svg?react";
 import { TickerItem } from './partials';
 import { Outlet } from 'react-router-dom';
 
+const siteMap = {
+    '/': 'Earnings Calendar',
+    '/watch-list': 'Watch List',
+    '/trends': 'Stock Trends',
+    '/stocks': 'Stocks',
+    '/settings': 'Preferences'
+}
+
 export default function Header({
-    pageTitle = 'Earnings Calander',
-    watchListData = [] }) {
+    watchListData = [],
+    setAsideActive
+ }) {
+    const title = siteMap[window.location.pathname];
 
     return (
         <>
@@ -14,13 +24,13 @@ export default function Header({
                 <div className={styles['header-nav']}>
                     <div className={styles['header-title-container']}>
 
-                        <div className={styles['header-title']}>
+                        <div className={styles['header-title']} onClick={() => setAsideActive(prev => !prev)}>
                             <Bars />
                             <h1>poortrim</h1>
                             <span>{'>'}</span>
                         </div>
                         <div>
-                            <h2>{pageTitle}</h2>
+                            <h2>{title}</h2>
                         </div>
                     </div>
 
