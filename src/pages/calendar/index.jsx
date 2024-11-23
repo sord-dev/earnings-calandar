@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Calendar } from '../../components'
 import { useNavigate } from 'react-router-dom'
-import NotificationTrey from '../../components/system-notification'
+import { NotificationTrey } from '../../components'
 
 
 const convertDate = (date) => {
@@ -32,7 +32,7 @@ function CalendarPage() {
     const fetchEarnings = async () => {
       try {
         const { from, to } = viewedMonths;
-        const response = await axios.get(`http://localhost:3003/api/earnings?from=${convertDate(from)}&to=${convertDate(to)}`, { withCredentials: true });
+        const response = await axios.get(`http://localhost:3003/api/v1/earnings?from=${convertDate(from)}&to=${convertDate(to)}`, { withCredentials: true });
         const data = await response.data;  // Adjusted to .data for Axios
 
         setEarnings(data);
@@ -42,7 +42,7 @@ function CalendarPage() {
           navigate('/authenticate');
         } else {
           setEarnings([]);
-          appendNotification('Failed to fetch earnings', 'error');
+          appendNotification(error.message, 'error');
           console.error(error);
         }
       }
@@ -56,6 +56,8 @@ function CalendarPage() {
     console.log('Date changed to:', date);
     setViewedMonths({ from: new Date(date), to: new Date(new Date(date).setMonth(date.getMonth() + 1)) });
   }, [date])
+
+  
   return (
     <>
       <Calendar earnings={earnings} currentDate={date}  setCurrentDate={setDate} />

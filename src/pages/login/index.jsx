@@ -7,7 +7,7 @@ function Login() {
 
   const login = async (data) => {
     try {
-      const response = await axios.post('http://localhost:3003/api/auth/login', data, { withCredentials: true });
+      const response = await axios.post('http://localhost:3003/api/v1/auth/login', data, { withCredentials: true });
       const result = response.data;  // Adjusted to .data for Axios
       console.log(result);
       return result;

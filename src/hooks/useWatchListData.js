@@ -9,7 +9,7 @@ function useWatchListData(defaultValue = []) {
     useEffect(() => {
       const getWatchlistData = async () => {
         try {
-          const response = await axios.get('http://localhost:3003/api/tickers', { withCredentials: true })
+          const response = await axios.get('http://localhost:3003/api/v1/tickers', { withCredentials: true })
           const data = response.data
           console.log(data)
           setWatchlistData(data)

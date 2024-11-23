@@ -6,17 +6,25 @@
 
 .header-title {
     background-color: var(--color-primary);
+    width: var(--aside-offset);
     display: flex;
     align-items: center;
-    padding: 1em 1.5em;
-    gap: 12px;
+    padding: 12px 24px;
+    justify-content: space-between;
 
     cursor: pointer;
 }
 
-.header-title>* {
+.header-title > *,
+.header-logo > * {
     color: var(--text-secondary);
     font-weight: 800;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .header-title h1 {

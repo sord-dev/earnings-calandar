@@ -1,5 +1,5 @@
 .aside {
-    width: var(--aside-offset);
+    width: calc(var(--aside-offset) + 48px);
     height: 100%;
     background-color: #f5f5f5;
     display: flex;
@@ -29,7 +29,7 @@
 }
 
 .outlet {
-    margin-left: var(--aside-offset);
+    margin-left: calc(var(--aside-offset) + 48px);
     animation: outlet-slide-in 0.2s;
 }
 

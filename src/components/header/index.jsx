@@ -15,7 +15,7 @@ const siteMap = {
 export default function Header({
     watchListData = [],
     setAsideActive
- }) {
+}) {
     const title = siteMap[window.location.pathname];
 
     return (
@@ -25,8 +25,10 @@ export default function Header({
                     <div className={styles['header-title-container']}>
 
                         <div className={styles['header-title']} onClick={() => setAsideActive(prev => !prev)}>
-                            <Bars />
-                            <h1>poortrim</h1>
+                            <div className={styles['header-logo']}>
+                                <Bars />
+                                <h1>poortrim</h1>
+                            </div>
                             <span>{'>'}</span>
                         </div>
                         <div>
@@ -50,9 +52,9 @@ export default function Header({
 }
 
 export const renderTickers = (tickerData) => {
-    if(!tickerData.length) return null;
+    if (!tickerData.length) return null;
     return tickerData.map((ticker, index) => {
-        const {price: { symbol, currencySymbol, regularMarketPrice, regularMarketChange } } = ticker;
-        return <TickerItem key={index} ticker={symbol} price={currencySymbol+regularMarketPrice} change={regularMarketChange.toFixed(2) + '%'} />
+        const { price: { symbol, currencySymbol, regularMarketPrice, regularMarketChange } } = ticker;
+        return <TickerItem key={index} ticker={symbol} price={currencySymbol + regularMarketPrice} change={regularMarketChange.toFixed(2) + '%'} />
     })
 };
