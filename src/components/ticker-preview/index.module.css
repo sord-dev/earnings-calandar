@@ -1,0 +1,48 @@
+.ticker-preview {
+    width: 280px;
+    height: 200px;
+
+    background-color: var(--color-primary);
+    animation: fade-in 0.2s ease-in-out;
+    padding: 12px 8px;
+
+    z-index: 9999;
+}
+
+.ticker-preview * {
+    color: var(--color-secondary);
+}
+
+.ticker-preview-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ticker-preview-title h2 {
+    font-size: 1em;
+    font-weight: 500;
+    margin: 0;
+}
+
+.ticker-preview-title p {
+    display: flex;
+    align-items: center;
+    font-size: .8em;
+    font-weight: 400;
+}
+
+.ticker-preview-meta {
+    font-size: .7em;
+    max-height: 200px;
+    overflow-y: hidden;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
