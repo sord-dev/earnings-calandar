@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import { Auth, CalendarPage, Stocks } from './pages'
 import { AsideNavbar, Header } from './components'
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 function App() {
   const [asideActive, setAsideActive] = useState(false);

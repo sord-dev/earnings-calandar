@@ -6,6 +6,7 @@ import { LocalStorageCache } from '../../utils'
 const cache = new LocalStorageCache('stock_metadata_')
 
 function TickerPreview({ ticker, mousePosition }) {
+    if(!ticker) return null;
     const [stock, setStock] = React.useState({ data: null, loading: true, error: null })
     const style = { left: `${mousePosition.x}px`, top: `${mousePosition.y}px`, position: 'absolute' }
 

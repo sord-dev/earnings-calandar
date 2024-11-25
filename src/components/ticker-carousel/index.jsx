@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import styles from './index.module.css'
 
 import { returnCurrencySign } from '../../utils'
@@ -18,8 +18,9 @@ const Ticker = ({ ticker, previewTicker }) => {
     const { color, sign } = regularMarketChange > 0 ? { color: 'green', sign: '+' } : { color: 'red', sign: '' };
 
     const currSign = returnCurrencySign(currency);
+
     return (
-        <div className={styles['ticker']} onMouseOver={(() => previewTicker(ticker))} onMouseLeave={() => previewTicker(null)}>
+        <div className={styles['ticker']} onMouseEnter={() => previewTicker(ticker)} onMouseLeave={() => previewTicker(null)}>
             <div className={styles['ticker-meta']}>
                 <p>{symbol}</p>
                 <p className={styles['ticker-price']} style={{ color }}>{sign && sign}{regularMarketChange.toFixed(2)}%</p>

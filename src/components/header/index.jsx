@@ -18,7 +18,7 @@ export default function Header({
     setAsideActive
 }) {
     const title = siteMap[window.location.pathname];
-    const { data: watchListData, error, loading, refetch } = useRefetch({ method: 'GET', url: 'http://localhost:3003/api/v1/tickers' });
+    const { data: watchListData, error, loading, refetch } = useRefetch({ method: 'GET', url: 'http://localhost:3003/api/v1/tickers/watch-list' });
 
     useEffect(() => {
         const tick = setInterval(async () => await refetch(), 30000)

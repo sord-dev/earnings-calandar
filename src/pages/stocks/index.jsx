@@ -47,14 +47,14 @@ function StocksPage() {
 
     return (
         <div>
-            <h2>Daily Gainers</h2>
-            <TickerCarousel {...{ tickers: stocks?.dailyGainers, setHoveredTicker }} />
-            <NotificationTrey {...{ messages, setMessages }} />
-            {hoveredTicker && <TickerPreview {...{ ticker: hoveredTicker, mousePosition }} />}
-
+            {/* <h2>Daily Gainers</h2>
+            <TickerCarousel {...{ tickers: stocks?.dailyGainers, setHoveredTicker }} /> */}
+            <TickerPreview {...{ ticker: hoveredTicker, mousePosition }} />
 
             <h2>Trending</h2>
             <TickerCarousel {...{ tickers: stocks?.trending, setHoveredTicker }} />
+            
+            <NotificationTrey {...{ messages, setMessages }} />
         </div>
     )
 }

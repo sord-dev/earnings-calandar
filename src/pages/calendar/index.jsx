@@ -3,24 +3,13 @@ import React, { useEffect, useState } from 'react'
 import { Calendar } from '../../components'
 import { useNavigate } from 'react-router-dom'
 import { NotificationTrey } from '../../components'
-
-
-const convertDate = (date) => {
-  // we need to convert the date to a string that the server can understand 
-  // YYYY-MM-DD (2021-09-01)
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-
-  return `${year}-${month < 10 ? `0${month}` : month}-${day < 10 ? `0${day}` : day}`;
-}
+import { useCalendar } from '../../hooks'
+import { convertDate } from '../../utils'
 
 function CalendarPage() {
   const [earnings, setEarnings] = useState([])
   const [messages, setMessages] = useState([])
-  const [date, setDate] = useState(new Date())
-
-  const [viewedMonths, setViewedMonths] = useState({ from: new Date(date), to: new Date(new Date().setMonth(new Date().getMonth() + 1)) })
+  const {date, month: viewedMonths, setDate} = useCalendar()
 
   const navigate = useNavigate()
 
@@ -50,12 +39,6 @@ function CalendarPage() {
 
     fetchEarnings()
   }, [viewedMonths, navigate])
-
-
-  useEffect(() => {
-    console.log('Date changed to:', date);
-    setViewedMonths({ from: new Date(date), to: new Date(new Date(date).setMonth(date.getMonth() + 1)) });
-  }, [date])
 
   
   return (
