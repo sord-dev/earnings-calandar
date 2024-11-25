@@ -1,11 +1,12 @@
 import axios from 'axios'
 import React from 'react'
+import styles from './index.module.css'
 
 import { NotificationTrey, TickerCarousel, TickerPreview } from '../../components'
 import { useMousePosition } from '../../hooks'
 
 const fetchData = async (url = '') => {
-    if(!url) return null;
+    if (!url) return null;
 
     try {
         const res = await axios.get(url);
@@ -28,7 +29,9 @@ function StocksPage() {
                 const trending = await fetchData('http://localhost:3003/api/v1/tickers/trending');
                 const dailyGainers = await fetchData('http://localhost:3003/api/v1/tickers/gainers');
 
-                setStocks({ ...trending, ...dailyGainers })
+                const data = { ...trending, ...dailyGainers }
+                setStocks(data)
+
                 setMessages(prev => [...prev, { type: 'success', notification: 'Stocks fetched successfully' }])
             } catch (error) {
                 if (error.code === "ERR_BAD_REQUEST") {
@@ -44,17 +47,24 @@ function StocksPage() {
         fetchStocks()
     }, [])
 
-
     return (
         <div>
-            {/* <h2>Daily Gainers</h2>
-            <TickerCarousel {...{ tickers: stocks?.dailyGainers, setHoveredTicker }} /> */}
+            <CarouselList {...{ setHoveredTicker, tickers: stocks }} />
             <TickerPreview {...{ ticker: hoveredTicker, mousePosition }} />
-
-            <h2>Trending</h2>
-            <TickerCarousel {...{ tickers: stocks?.trending, setHoveredTicker }} />
-            
             <NotificationTrey {...{ messages, setMessages }} />
+        </div>
+    )
+}
+
+const CarouselList = ({ tickers, setHoveredTicker }) => {
+    return (
+        <div>
+            {Object.entries(tickers).map(([key, value]) => (
+                <div key={key} className={styles['carousel-list']}>
+                    <h2>{key.replace('-', ' ')}</h2>
+                    <TickerCarousel {...{ tickers: value, setHoveredTicker }} />
+                </div>
+            ))}
         </div>
     )
 }

@@ -2,9 +2,9 @@ import styles from './index.module.css';
 import Bars from "../../assets/poortrim-bars.svg?react";
 
 import { TickerItem } from './partials';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useRefetch } from '../../hooks';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const siteMap = {
     '/': 'Earnings Calendar',
@@ -17,13 +17,28 @@ const siteMap = {
 export default function Header({
     setAsideActive
 }) {
-    const title = siteMap[window.location.pathname];
     const { data: watchListData, error, loading, refetch } = useRefetch({ method: 'GET', url: 'http://localhost:3003/api/v1/tickers/watch-list' });
+    
+    const location = useLocation()
+    const nav = useNavigate()
+
+    const [title, setTitle] = useState(siteMap[location.pathname]);
 
     useEffect(() => {
         const tick = setInterval(async () => await refetch(), 30000)
         return () => clearInterval(tick);
     }, [])
+
+
+    useEffect(() => {
+        if(!error) return;
+        if (error) console.error(error);
+        if(error?.status === 401) nav('/authenticate');
+    }, [error])
+
+    useEffect(() => {
+        setTitle(siteMap[location.pathname]);
+    }, [location])
 
 
     return (
