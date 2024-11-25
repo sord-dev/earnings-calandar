@@ -14,6 +14,10 @@
 
   --aside-offset: 270px;
 
+  --background-color: #fdfdfd;
+
+  --title-color: #0c0d22;
+
   --color-primary: #0c0d22;
   --color-secondary: #dff6ff;
   --color-tertiary: #f1f1f1;
@@ -25,25 +29,37 @@
   --text-secondary: #f8f8f8;
 }
 
+.dark-mode {
+  --color-primary: #f8f8f8; 
+  --color-secondary: #0c0d22;
+  --color-tertiary: #1f1f1f;
+
+  --text-primary: #f8f8f8;
+  --text-secondary: #0c0d22;
+
+  --background-color: #161616;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+
+  height: 100%;
+  background-color: var(--background-color);
+}
+
+
+h1, h2, h3, h4, h5, h6, a, p, span, textarea, input {
+  color: var(--text-primary);
+}
+
 a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-* {
-  color: var(--text-primary);
 }

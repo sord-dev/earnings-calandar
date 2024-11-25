@@ -7,7 +7,7 @@ import { useRefetch } from '../../hooks';
 import { useEffect, useState } from 'react';
 
 const siteMap = {
-    '/': 'Earnings Calendar',
+    '/': 'Earnings',
     '/watch-list': 'Watch List',
     '/trends': 'Stock Trends',
     '/stocks': 'Stocks',

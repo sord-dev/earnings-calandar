@@ -1,0 +1,12 @@
+.carousel-list {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+.carousel-list h2 {
+    text-transform: capitalize;
+}

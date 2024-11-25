@@ -5,7 +5,7 @@
 }
 
 .header-title {
-    background-color: var(--color-primary);
+    background-color: var(--title-color);
     width: var(--aside-offset);
     display: flex;
     align-items: center;
@@ -17,7 +17,6 @@
 
 .header-title > *,
 .header-logo > * {
-    color: var(--text-secondary);
     font-weight: 800;
 }
 

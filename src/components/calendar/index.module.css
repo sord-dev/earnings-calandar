@@ -25,7 +25,7 @@
 }
 
 .calendar-grid-cell.today {
-    color: var(--text-secondary);
+    color: var(--text-primary);
     border-color: var(--color-primary);
 }
 

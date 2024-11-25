@@ -3,19 +3,15 @@ import React, { useEffect, useState } from 'react'
 import { Calendar } from '../../components'
 import { useNavigate } from 'react-router-dom'
 import { NotificationTrey } from '../../components'
-import { useCalendar } from '../../hooks'
+import { useCalendar, useNotificationQueue } from '../../hooks'
 import { convertDate } from '../../utils'
 
 function CalendarPage() {
   const [earnings, setEarnings] = useState([])
-  const [messages, setMessages] = useState([])
-  const {date, month: viewedMonths, setDate} = useCalendar()
+  const { messages, appendNotification, removeLastNotification } = useNotificationQueue();
+  const { date, month: viewedMonths, setDate } = useCalendar()
 
   const navigate = useNavigate()
-
-  const appendNotification = (message, type) => {
-    setMessages(prev => [...prev, { notification: message, type }]);
-  }
 
   useEffect(() => {
     const fetchEarnings = async () => {
@@ -40,11 +36,11 @@ function CalendarPage() {
     fetchEarnings()
   }, [viewedMonths, navigate])
 
-  
+
   return (
     <>
-      <Calendar earnings={earnings} currentDate={date}  setCurrentDate={setDate} />
-      <NotificationTrey messages={messages} setMessages={setMessages} />
+      <Calendar earnings={earnings} currentDate={date} setCurrentDate={setDate} />
+      <NotificationTrey {...{ clearNotification: removeLastNotification, messages }} />
     </>
   )
 }

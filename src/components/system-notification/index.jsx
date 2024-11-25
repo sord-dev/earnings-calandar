@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from './index.module.css';
 
-export function SystemNotification({ message, timeout = 2000, type = 'info', setMessages }) {
+export function SystemNotification({ message, timeout = 2000, type = 'info', clearNotification }) {
     const [visible, setVisible] = useState(true);
     if(!message) return null;
 
@@ -9,7 +9,7 @@ export function SystemNotification({ message, timeout = 2000, type = 'info', set
         const timer = setTimeout(() => {
             setVisible(false);
             // take the first message off the stack (needs fix)
-            setMessages((messages) => messages.slice(1));
+            clearNotification();
         }, timeout); // Dismiss after 3 seconds
 
         return () => clearTimeout(timer);
@@ -24,11 +24,12 @@ export function SystemNotification({ message, timeout = 2000, type = 'info', set
     );
 }
 
-export const NotificationTrey = ({ messages, setMessages }) => {
+export const NotificationTrey = ({ messages, clearNotification }) => {
+    if(!messages) return null;
     return (
       <div className={`${styles["system-notification-trey"]}`}>
         {messages.length > 0 && messages.map((message, index) => (
-            <SystemNotification key={index} message={message.notification} type={message.type} setMessages={setMessages} />
+            <SystemNotification key={index}  {...message} {...{...clearNotification }} />
           ))}
       </div>
     )

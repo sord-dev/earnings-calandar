@@ -1,7 +1,7 @@
 .aside {
     width: calc(var(--aside-offset) + 48px);
     height: 100%;
-    background-color: #f5f5f5;
+    background-color: var(--color-tertiary);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -26,6 +26,11 @@
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.aside-navbar__item > *,
+.aside-navbar__item svg {
+    color: var(--text-primary) !important;
 }
 
 .outlet {
