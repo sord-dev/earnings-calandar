@@ -7,8 +7,7 @@ const cache = new LocalStorageCache('stock_metadata_')
 
 function TickerPreview({ ticker, mousePosition }) {
     const [stock, setStock] = React.useState({ data: null, loading: true, error: null })
-    const [position, setPosition] = React.useState({ x: 0, y: 0 })
-    const style = { left: `${position.x}px`, top: `${position.y}px`, position: 'absolute' }
+    const style = { left: `${mousePosition.x}px`, top: `${mousePosition.y}px`, position: 'absolute' }
 
     if (!ticker) {
         return null
@@ -34,9 +33,6 @@ function TickerPreview({ ticker, mousePosition }) {
         fetchStock()
     }, [ticker])
 
-    React.useEffect(() => {
-        setPosition({ x: mousePosition.current.x, y: mousePosition.current.y })
-    }, [mousePosition])
 
     if (stock.loading) {
         return <div {...{ style }} >Loading...</div>

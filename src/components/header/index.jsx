@@ -3,6 +3,8 @@ import Bars from "../../assets/poortrim-bars.svg?react";
 
 import { TickerItem } from './partials';
 import { Outlet } from 'react-router-dom';
+import { useRefetch } from '../../hooks';
+import { useEffect } from 'react';
 
 const siteMap = {
     '/': 'Earnings Calendar',
@@ -13,10 +15,16 @@ const siteMap = {
 }
 
 export default function Header({
-    watchListData = [],
     setAsideActive
 }) {
     const title = siteMap[window.location.pathname];
+    const { data: watchListData, error, loading, refetch } = useRefetch({ method: 'GET', url: 'http://localhost:3003/api/v1/tickers' });
+
+    useEffect(() => {
+        const tick = setInterval(async () => await refetch(), 30000)
+        return () => clearInterval(tick);
+    }, [])
+
 
     return (
         <>
@@ -42,7 +50,7 @@ export default function Header({
                 </div>
 
                 <div className={styles['header-menu']}>
-                    {renderTickers(watchListData)}
+                    {loading ? <p>Loading...</p> : error ? <p>Error: {error.message}</p> : renderTickers(watchListData)}
                 </div>
             </header>
 
@@ -52,6 +60,7 @@ export default function Header({
 }
 
 export const renderTickers = (tickerData) => {
+    if (!tickerData) return null;
     if (!tickerData.length) return null;
     return tickerData.map((ticker, index) => {
         const { price: { symbol, currencySymbol, regularMarketPrice, regularMarketChange } } = ticker;

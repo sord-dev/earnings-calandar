@@ -2,16 +2,14 @@ import { Route, Routes } from 'react-router-dom'
 import { Auth, CalendarPage, Stocks } from './pages'
 import { AsideNavbar, Header } from './components'
 
-import { useWatchListData } from './hooks';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
-  const { watchListData } = useWatchListData([])
-  const [asideActive, setAsideActive] = useState(false)
+  const [asideActive, setAsideActive] = useState(false);
 
   return (
     <Routes>
-      <Route element={<Header {...{ watchListData, setAsideActive }} />} >
+      <Route element={<Header {...{ setAsideActive }} />} >
         <Route element={<AsideNavbar active={asideActive} />}>
           <Route path="/" element={<CalendarPage />} />
 
