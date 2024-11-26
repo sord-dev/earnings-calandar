@@ -38,10 +38,10 @@ function CalendarPage() {
 
 
   return (
-    <>
+    <div>
       <Calendar earnings={earnings} currentDate={date} setCurrentDate={setDate} />
       <NotificationTrey {...{ clearNotification: removeLastNotification, messages }} />
-    </>
+    </div>
   )
 }
 

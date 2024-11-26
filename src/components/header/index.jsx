@@ -14,9 +14,7 @@ const siteMap = {
     '/settings': 'Preferences'
 }
 
-export default function Header({
-    setAsideActive
-}) {
+export default function Header({ setAsideActive }) {
     const { data: watchListData, error, loading, refetch } = useRefetch({ method: 'GET', url: 'http://localhost:3003/api/v1/tickers/watch-list' });
     
     const location = useLocation()
@@ -57,10 +55,6 @@ export default function Header({
                         <div>
                             <h2>{title}</h2>
                         </div>
-                    </div>
-
-                    <div className={styles['header-nav-popout']}>
-                        <p>Don't worry about this right now...</p>
                     </div>
                 </div>
 

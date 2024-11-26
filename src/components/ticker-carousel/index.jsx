@@ -4,6 +4,7 @@ import styles from './index.module.css'
 import { returnCurrencySign } from '../../utils'
 
 function TickerCarousel({ tickers = [], setHoveredTicker }) {
+    if(!tickers) return <div>Loading...</div>;
     if (!tickers.length) return <div>Loading...</div>;
 
     return (
