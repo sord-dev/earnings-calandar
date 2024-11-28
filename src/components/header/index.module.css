@@ -29,6 +29,7 @@
 .header-title h1 {
     font-size: 1.8em;
     text-transform: uppercase;
+    color: var(--title-text-color);
 }
 
 .header-title svg {

@@ -1,5 +1,5 @@
 .aside {
-    width: calc(var(--aside-offset) + 48px);
+    width: var(--aside-offset);
     height: 100%;
     background-color: var(--color-tertiary);
     display: flex;

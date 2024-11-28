@@ -17,6 +17,7 @@
   --background-color: #fdfdfd;
 
   --title-color: #0c0d22;
+  --title-text-color: #f8f8f8;
 
   --color-primary: #0c0d22;
   --color-secondary: #dff6ff;
@@ -27,6 +28,8 @@
 
   --text-primary: #0c0d22;
   --text-secondary: #f8f8f8;
+
+  --stocks-table-background: #4947472c;
 }
 
 .dark-mode {
@@ -38,6 +41,12 @@
   --text-secondary: #0c0d22;
 
   --background-color: #161616;
+  --stocks-table-background: #f0f0f02c;
+}
+
+
+*{
+  box-sizing: border-box;
 }
 
 body,

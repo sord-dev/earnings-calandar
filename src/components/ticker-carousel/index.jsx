@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import PropTypes from 'prop-types';
 import styles from './index.module.css'
 
 import { returnCurrencySign } from '../../utils'
@@ -15,7 +15,7 @@ function TickerCarousel({ tickers = [], setHoveredTicker }) {
 }
 
 const Ticker = ({ ticker, previewTicker }) => {
-    const { symbol, longName, regularMarketPrice, regularMarketChange, currency } = ticker;
+    const { symbol, regularMarketPrice, regularMarketChange, currency } = ticker;
     const { color, sign } = regularMarketChange > 0 ? { color: 'green', sign: '+' } : { color: 'red', sign: '' };
 
     const currSign = returnCurrencySign(currency);
@@ -26,10 +26,20 @@ const Ticker = ({ ticker, previewTicker }) => {
                 <p>{symbol}</p>
                 <p className={styles['ticker-price']} style={{ color }}>{sign && sign}{regularMarketChange.toFixed(2)}%</p>
             </div>
-            <h3>{currSign + regularMarketPrice}</h3>
+            <h3>{currSign + Intl.NumberFormat().format(regularMarketPrice)}</h3>
 
         </div>
     )
 }
+
+Ticker.propTypes = {
+    ticker: PropTypes.object.isRequired,
+    previewTicker: PropTypes.func.isRequired,
+};
+
+TickerCarousel.propTypes = {
+    tickers: PropTypes.array,
+    setHoveredTicker: PropTypes.func.isRequired,
+};
 
 export default TickerCarousel

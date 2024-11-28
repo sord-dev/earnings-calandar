@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import styles from './index.module.css'
+import PropTypes from 'prop-types'
 import { LocalStorageCache } from '../../utils'
 
 const cache = new LocalStorageCache('stock_metadata_')
@@ -16,7 +17,7 @@ function TickerPreview({ ticker, mousePosition }) {
                 const cachedStock = cache.getItem(ticker.symbol)
                 if (cachedStock) return setStock({ data: cachedStock, loading: false, error: null });
 
-                const response = await axios.get(`http://localhost:3003/api/v1/tickers/${ticker.symbol}`, {withCredentials: true});
+                const response = await axios.get(`http://localhost:3003/api/v2/tickers/${ticker.symbol}`, {withCredentials: true});
                 let data = response.data;
 
                 cache.setItem(ticker.symbol, data, 1000 * 60 * 60 * 24);
@@ -36,24 +37,25 @@ function TickerPreview({ ticker, mousePosition }) {
     }
 
     const { symbol, longName, regularMarketPrice, regularMarketChange, marketCap, forwardPE } = ticker;
-    const { data: { summaryProfile: { industry, longBusinessSummary, website }, price: { currencySymbol, exchangeName } } } = stock;
+    const summaryProfile = stock.data.summaryProfile;
+    const price = stock.data.price;
 
     return (
         <div className={styles['ticker-preview']} {...{ style }}>
             <div className={styles['ticker-preview-title']}>
                 <h2>{longName} ({symbol})</h2>
-                <p>{currencySymbol} {Intl.NumberFormat().format(regularMarketPrice)}</p>
+                <p>{price.currencySymbol} {Intl.NumberFormat().format(regularMarketPrice)}</p>
             </div>
             <div className={styles['ticker-preview-meta']}>
                 <div>
-                    <p>Industry: {industry}</p>
-                    <p>Exchange: {exchangeName}</p>
-                    <p>Website: <a href={website} target="_blank" rel="noreferrer">{website}</a></p>
+                    <p>Industry: {summaryProfile?.industry || 'N/A'}</p>
+                    <p>Exchange: {price.exchangeName}</p>
+                   {summaryProfile?.website && <p>Website: <a href={summaryProfile.website} target="_blank" rel="noreferrer">{summaryProfile.website}</a></p>}
                 </div>
 
                 <div>
                     <p>Market Change: {regularMarketChange.toFixed(2)}%</p>
-                    <p>Market Cap: {currencySymbol} {Intl.NumberFormat().format(marketCap)}</p>
+                    <p>Market Cap: {price.currencySymbol} {Intl.NumberFormat().format(marketCap)}</p>
                     <p>Forward PE: {forwardPE}</p>
                 </div>
             </div>
@@ -61,4 +63,19 @@ function TickerPreview({ ticker, mousePosition }) {
     )
 }
 
-export default TickerPreview
+TickerPreview.propTypes = {
+    ticker: PropTypes.shape({
+        symbol: PropTypes.string.isRequired,
+        longName: PropTypes.string,
+        regularMarketPrice: PropTypes.number,
+        regularMarketChange: PropTypes.number,
+        marketCap: PropTypes.number,
+        forwardPE: PropTypes.number,
+    }).isRequired,
+    mousePosition: PropTypes.shape({
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired,
+    }).isRequired,
+}
+
+export default TickerPreview;

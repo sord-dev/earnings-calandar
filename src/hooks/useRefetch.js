@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios'
 import React from 'react'
 
@@ -47,7 +48,7 @@ function useRefetch({ method = 'GET', url = '', body = null }) {
         fetchData(url, body)
             .then(data => setData(data))
             .catch(error => setError(error))
-    }, [])
+    }, [url])
 
     return { data, loading, error, refetch }
 }

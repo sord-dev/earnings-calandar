@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
-import { Auth, CalendarPage, Stocks, Trending } from './pages'
+import { Auth, CalendarPage, Preferences, Stocks, Trending } from './pages'
 import { AsideNavbar, Header } from './components'
 
 import { useState } from 'react';
@@ -17,7 +17,7 @@ function App() {
           <Route path="/trends" element={<Trending />} />
           <Route path="/stocks" element={<Stocks />} />
 
-          <Route path="/settings" element={<div>Preferences</div>} />
+          <Route path="/settings" element={<Preferences />} />
         </Route>
       </Route>
       <Route path="/authenticate" element={<Auth />} />

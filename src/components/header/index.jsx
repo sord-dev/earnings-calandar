@@ -15,7 +15,7 @@ const siteMap = {
 }
 
 export default function Header({ setAsideActive }) {
-    const { data: watchListData, error, loading, refetch } = useRefetch({ method: 'GET', url: 'http://localhost:3003/api/v1/tickers/watch-list' });
+    const { data: watchListData, error, loading, refetch } = useRefetch({ method: 'GET', url: 'http://localhost:3003/api/v2/tickers/watch-list' });
     
     const location = useLocation()
     const nav = useNavigate()
