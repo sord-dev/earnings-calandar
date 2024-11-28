@@ -10,7 +10,12 @@
     top: 102px;
     left: 0;
 
-    animation: slide-in 0.2s;
+    transform: translateX(0);
+    transition: transform 0.1s;
+}
+
+.aside.hidden {
+    transform: translateX(-100%);
 }
 
 .aside-navbar {
@@ -35,23 +40,9 @@
 
 .outlet {
     margin-left: calc(var(--aside-offset) + 48px);
-    animation: outlet-slide-in 0.2s;
+    transition: margin-left 0.2s;
 }
 
-@keyframes outlet-slide-in {
-    from {
-        margin-left: 70px;
-    }
-    to {
-        margin-left: var(--aside-offset);
-    }
-}
-
-@keyframes slide-in {
-    from {
-        transform: translateX(-100%);
-    }
-    to {
-        transform: translateX(0);
-    }
+.outlet.hidden {
+    margin-left: 70px;
 }

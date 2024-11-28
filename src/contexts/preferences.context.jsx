@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 
 const defaultPreferences = {
     theme: localStorage.getItem('preferences_theme') || 'dark',
-    asideOpen: localStorage.getItem('preferences_asideOpen') || true,
+    asideOpen: localStorage.getItem('preferences_asideOpen') == 'false' ? false : true,
     toggleTheme: (theme) => { },
     toggleAside: () => { },
 };
@@ -17,17 +17,26 @@ export const PreferenceContextProvider = ({ children }) => {
     const [preferences, setPreferences] = useState(defaultPreferences);
 
     const toggleTheme = (theme) => {
-        if (['light', 'dark'].includes(theme)) {
-            localStorage.setItem('theme', theme);
-            return setPreferences({ ...preferences, theme });
-        }
+        try {
+            if (['light', 'dark'].includes(theme)) {
+                localStorage.setItem('preferences_theme', theme);
+                return setPreferences({ ...preferences, theme });
+            }
 
-        return setPreferences({ ...preferences, theme: 'dark' });
+            return setPreferences({ ...preferences, theme: 'dark' });
+        }
+        catch (e) {
+            console.error(e);
+        }
     }
 
     const toggleAside = () => {
-        localStorage.setItem('asideOpen', !preferences.asideOpen);
-        setPreferences({ ...preferences, asideOpen: !preferences.asideOpen });
+        try {
+            localStorage.setItem('preferences_asideOpen', !preferences.asideOpen);
+            return setPreferences({ ...preferences, asideOpen: !preferences.asideOpen });
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     useEffect(() => {

@@ -5,6 +5,7 @@ import { TickerItem } from './partials';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useRefetch } from '../../hooks';
 import { useEffect, useState } from 'react';
+import { usePreferenceContext } from '../../contexts/preferences.context';
 
 const siteMap = {
     '/': 'Earnings',
@@ -14,8 +15,9 @@ const siteMap = {
     '/settings': 'Preferences'
 }
 
-export default function Header({ setAsideActive }) {
+export default function Header() {
     const { data: watchListData, error, loading, refetch } = useRefetch({ method: 'GET', url: 'http://localhost:3003/api/v2/tickers/watch-list' });
+    const { toggleAside } = usePreferenceContext();
     
     const location = useLocation()
     const nav = useNavigate()
@@ -25,14 +27,14 @@ export default function Header({ setAsideActive }) {
     useEffect(() => {
         const tick = setInterval(async () => await refetch(), 30000)
         return () => clearInterval(tick);
-    }, [])
+    }, [refetch])
 
 
     useEffect(() => {
         if(!error) return;
         if (error) console.error(error);
         if(error?.status === 401) nav('/authenticate');
-    }, [error])
+    }, [error, nav])
 
     useEffect(() => {
         setTitle(siteMap[location.pathname]);
@@ -45,7 +47,7 @@ export default function Header({ setAsideActive }) {
                 <div className={styles['header-nav']}>
                     <div className={styles['header-title-container']}>
 
-                        <div className={styles['header-title']} onClick={() => setAsideActive(prev => !prev)}>
+                        <div className={styles['header-title']} onClick={() => toggleAside()}>
                             <div className={styles['header-logo']}>
                                 <Bars />
                                 <h1>poortrim</h1>
