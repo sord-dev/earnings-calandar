@@ -14,3 +14,8 @@
 .carousel-list h2 {
     text-transform: capitalize;
 }
+
+.table-error {
+    color: red;
+    text-align: center;
+}

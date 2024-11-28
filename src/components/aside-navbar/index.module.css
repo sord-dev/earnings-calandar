@@ -39,7 +39,7 @@
 }
 
 .outlet {
-    margin-left: calc(var(--aside-offset) + 48px);
+    margin-left: var(--aside-offset);
     transition: margin-left 0.2s;
 }
 

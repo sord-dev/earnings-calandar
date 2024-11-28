@@ -3,16 +3,18 @@ import { TableCell } from "./partials"
 
 import styles from './index.module.css'
 
-function StockTable({ stocks = [], onStockClick = () => { }, onStockHover = () => { }, pagination = { limit: 10, page: 1 }, setPagination = () => { } }) {
+function StockTable({ stocks = { data:[], total: 0 }, onStockClick = () => { }, onStockHover = () => { }, pagination = { limit: 10, page: 1, count: 0 }, setPagination = () => { } }) {
   if (!stocks) return null;
-  if (!stocks.length) return <div>Loading...</div>
+  if (!stocks.data.length) return <div>Loading...</div>
+
+  const pageLimit = Math.ceil(stocks.total / pagination.limit);
 
   return (
     <div className={styles['table-wrapper']}>
       <div className={styles['table-controls']}>
         <div className={styles['pagination']}>
           <button onClick={() => setPagination({ ...pagination, page: pagination.page - 1 })} disabled={pagination.page === 1}>Previous</button>
-          <button onClick={() => setPagination({ ...pagination, page: pagination.page + 1 })} disabled={pagination.page === Math.ceil(pagination.count / pagination.limit)}>Next</button>
+          <button onClick={() => setPagination({ ...pagination, page: pagination.page + 1 })} disabled={pagination.page === pageLimit}>Next</button>
         </div>
 
         <div className={styles['filters']}>
@@ -30,9 +32,9 @@ function StockTable({ stocks = [], onStockClick = () => { }, onStockHover = () =
           <div>Market Cap</div>
         </div>
 
-        {stocks.map((stock, index) => <TableCell key={stock.symbol} stock={stock} index={index + 1} onClick={onStockClick} onHover={onStockHover} pagination={pagination} />)}
+        {stocks.data.map((stock, index) => <TableCell key={stock.symbol} stock={stock} index={index + 1} onClick={onStockClick} onHover={onStockHover} pagination={pagination} />)}
       </div>
-      <p>{pagination.page} of {Math.ceil(pagination.count / pagination.limit)}</p>
+      <p>{pagination.page} of {pageLimit}</p>
     </div>
   )
 }

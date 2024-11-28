@@ -10,7 +10,6 @@ function TickerPreview({ ticker, mousePosition }) {
     const [stock, setStock] = React.useState({ data: null, loading: true, error: null })
     const style = { left: `${mousePosition.x}px`, top: `${mousePosition.y}px`, position: 'absolute' }
 
-
     React.useEffect(() => {
         const fetchStock = async () => {
             try {
@@ -54,7 +53,7 @@ function TickerPreview({ ticker, mousePosition }) {
                 </div>
 
                 <div>
-                    <p>Market Change: {regularMarketChange.toFixed(2)}%</p>
+                    <p>Market Change: {regularMarketChange ? regularMarketChange.toFixed(3) + '%' : 'N/a'}</p>
                     <p>Market Cap: {price.currencySymbol} {Intl.NumberFormat().format(marketCap)}</p>
                     <p>Forward PE: {forwardPE}</p>
                 </div>

@@ -4,7 +4,7 @@ import React from 'react'
 
 function useRefetch({ method = 'GET', url = '', body = null }) {
     const [data, setData] = React.useState(null)
-    const [loading, setLoading] = React.useState(false)
+    const [loading, setLoading] = React.useState(true)
     const [error, setError] = React.useState(null)
 
     const [request, setRequest] = React.useState(null)
@@ -19,6 +19,7 @@ function useRefetch({ method = 'GET', url = '', body = null }) {
 
         try {
             setError(null)
+            setLoading(false)
             const res = await axios(url, options);
             return res.data;
         } catch (error) {
