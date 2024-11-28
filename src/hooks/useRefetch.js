@@ -27,14 +27,13 @@ function useRefetch({ method = 'GET', url = '', body = null }) {
         }
     }
 
-    const refetch = async () => {
+    const refetch = async (override) => {
         if(!request) return null;
         setLoading(true)
         setError(null)
 
         try {
-            const { url, body } = request;
-            console.log(`refetching: ${url}`)
+            const { url, body } = override || request;
             const data = await fetchData(url, body)
             setData(data)
         } catch (error) {
@@ -48,7 +47,7 @@ function useRefetch({ method = 'GET', url = '', body = null }) {
         fetchData(url, body)
             .then(data => setData(data))
             .catch(error => setError(error))
-    }, [url])
+    }, [])
 
     return { data, loading, error, refetch }
 }

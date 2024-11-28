@@ -22,7 +22,7 @@ function StocksPage() {
         return () => clearInterval(interval);
     }, [refetchTrending])
 
-    useEffect(() => {refetchTrending()}, [pagination]);
+    useEffect(() => {refetchTrending({ url: `http://localhost:3003/api/v2/tickers/trending?${query}` })}, [pagination]);
 
     return (
         <div className={styles['trending-container']}>

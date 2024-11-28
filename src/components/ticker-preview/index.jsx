@@ -20,7 +20,7 @@ function TickerPreview({ ticker, mousePosition }) {
                 const response = await axios.get(`http://localhost:3003/api/v2/tickers/${ticker.symbol}`, {withCredentials: true});
                 let data = response.data;
 
-                cache.setItem(ticker.symbol, data, 1000 * 60 * 60 * 24);
+                cache.setItem(ticker.symbol, data, 1000 * 60 * 60); // cache for 1 hour
                 setStock({ data, loading: false, error: null })
             } catch (error) {
                 console.error(error)
