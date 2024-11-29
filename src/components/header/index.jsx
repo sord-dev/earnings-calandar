@@ -16,32 +16,29 @@ const siteMap = {
 }
 
 export default function Header() {
-    const { data: watchListData, error, loading, refetch } = useRefetch({ method: 'GET', url: 'http://localhost:3003/api/v2/tickers/indexes?limit=3' });
+    const { data: indexTickerData, error, loading, refetch, lastRequestTime } = useRefetch({ method: 'GET', url: 'http://localhost:3003/api/v2/tickers/indexes?limit=3' });
     const { toggleAside } = usePreferenceContext();
-    
+
     const location = useLocation()
     const nav = useNavigate()
 
     const [title, setTitle] = useState(siteMap[location.pathname]);
 
     useEffect(() => {
-        const tick = setInterval(async () => await refetch(), 30000)
+        const tick = setInterval(async () => await refetch(), 15000);
         return () => clearInterval(tick);
     }, [refetch])
 
 
     useEffect(() => {
-        if(!error) return;
+        if (!error) return;
         if (error) console.error(error);
-        if(error?.status === 401) nav('/authenticate');
+        if (error?.status === 401) nav('/authenticate');
     }, [error, nav])
 
     useEffect(() => {
         setTitle(siteMap[location.pathname]);
     }, [location])
-
-    console.log(watchListData);
-
 
     return (
         <>
@@ -62,9 +59,9 @@ export default function Header() {
                     </div>
                 </div>
 
-                <div className={styles['header-menu']}>
-                    {loading ? <p>Loading...</p> : error ? <p>Error: {error.message}</p> : renderTickers(watchListData?.data)}
-                </div>
+
+                {loading && !indexTickerData?.data ? <p>Loading...</p> : error ? <p>Error: {error.message}</p> : renderTickers(indexTickerData?.data, lastRequestTime)}
+
             </header>
 
             <Outlet />
@@ -73,11 +70,24 @@ export default function Header() {
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const renderTickers = (tickerData) => {
+export const renderTickers = (tickerData, lastRequestTime) => {
     if (!tickerData) return null;
     if (!tickerData.length) return null;
-    return tickerData.map((ticker, index) => {
-        const { price: { symbol, currency, regularMarketPrice, regularMarketChange, shortName } } = ticker;
-        return <TickerItem key={index} ticker={shortName||symbol} price={regularMarketPrice}  currency={currency} change={regularMarketChange.toFixed(2) + '%'} />
-    })
+
+    const lastRequest = new Date(lastRequestTime).toLocaleTimeString();
+    return (
+        <div className={styles['header-menu']}>
+            <div>
+                {
+                    tickerData.map((ticker, index) => {
+                        const { price: { symbol, currency, regularMarketPrice, regularMarketChange, shortName } } = ticker;
+                        return <TickerItem key={index} ticker={shortName || symbol} price={regularMarketPrice} currency={currency} change={regularMarketChange.toFixed(2) + '%'} />
+                    })
+                }
+            </div>
+            <div className={styles['header-menu-footer']}>
+                <p>Last Updated: {lastRequest}</p>
+            </div>
+        </div>
+    )
 };

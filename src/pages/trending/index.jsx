@@ -36,7 +36,8 @@ function StocksPage() {
             {/* <TickerCarousel {...{ tickers: trending, setHoveredTicker }} /> */}
             {hoveredTicker && <TickerPreview {...{ ticker: hoveredTicker, mousePosition }} />}
             <h3>Currently Trending Stocks</h3>
-            {loading ? <StockTableLoading /> : error ? <p className={styles['table-error']}>Crap! There was an error fetching the data: <br/> <b>{error.message}</b></p> : <StockTable {...{ stocks, pagination, setPagination, onStockHover: setHoveredTicker }} />}
+            {loading && !stocks ? <StockTableLoading /> : <StockTable {...{ stocks, pagination, setPagination, onStockHover: setHoveredTicker }} />}
+            {error ? <p className={styles['table-error']}>Crap! There was an error fetching the data: <br/> <b>{error.message}</b></p> : null}
 
         </div>
     )

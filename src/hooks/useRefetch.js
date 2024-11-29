@@ -7,6 +7,8 @@ function useRefetch({ method = 'GET', url = '', body = null }) {
     const [loading, setLoading] = React.useState(true)
     const [error, setError] = React.useState(null)
 
+
+    const [lastRequestTime, setLastRequestTime] = React.useState(null)
     const [request, setRequest] = React.useState(null)
 
     const fetchData = async (url = '', body = null) => {
@@ -19,10 +21,12 @@ function useRefetch({ method = 'GET', url = '', body = null }) {
 
         try {
             setError(null)
-            setLoading(false)
             const res = await axios(url, options);
+            setLastRequestTime(Date.now())
+            setLoading(false)
             return res.data;
         } catch (error) {
+            setLoading(false)
             setError(error)
             return null;
         }
@@ -36,6 +40,7 @@ function useRefetch({ method = 'GET', url = '', body = null }) {
         try {
             const { url, body } = override || request;
             const data = await fetchData(url, body)
+            setLastRequestTime(Date.now())
             setData(data)
         } catch (error) {
             setError(error)
@@ -50,7 +55,7 @@ function useRefetch({ method = 'GET', url = '', body = null }) {
             .catch(error => setError(error))
     }, [])
 
-    return { data, loading, error, refetch }
+    return { data, loading, error, refetch, lastRequestTime }
 }
 
 export default useRefetch

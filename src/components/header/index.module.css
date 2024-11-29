@@ -47,11 +47,24 @@
     display: none;
 }
 
-.header-menu {
+.header-menu > div {
     display: flex;
     gap: 8px;
     margin-right: 12px;
     margin-top: 8px;
+}
+
+.header-menu-footer,
+.header-menu-footer p {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 8px;
+    margin: 0;
+}
+
+.header-menu-footer p {
+    font-size: .675em;
+    font-weight: 400;
 }
 
 .ticker-item {
