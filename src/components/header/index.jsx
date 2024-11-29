@@ -16,7 +16,7 @@ const siteMap = {
 }
 
 export default function Header() {
-    const { data: watchListData, error, loading, refetch } = useRefetch({ method: 'GET', url: 'http://localhost:3003/api/v2/tickers/watch-list' });
+    const { data: watchListData, error, loading, refetch } = useRefetch({ method: 'GET', url: 'http://localhost:3003/api/v2/tickers/indexes?limit=3' });
     const { toggleAside } = usePreferenceContext();
     
     const location = useLocation()
@@ -40,6 +40,8 @@ export default function Header() {
         setTitle(siteMap[location.pathname]);
     }, [location])
 
+    console.log(watchListData);
+
 
     return (
         <>
@@ -61,7 +63,7 @@ export default function Header() {
                 </div>
 
                 <div className={styles['header-menu']}>
-                    {loading ? <p>Loading...</p> : error ? <p>Error: {error.message}</p> : renderTickers(watchListData)}
+                    {loading ? <p>Loading...</p> : error ? <p>Error: {error.message}</p> : renderTickers(watchListData?.data)}
                 </div>
             </header>
 
@@ -70,11 +72,12 @@ export default function Header() {
     )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const renderTickers = (tickerData) => {
     if (!tickerData) return null;
     if (!tickerData.length) return null;
     return tickerData.map((ticker, index) => {
-        const { price: { symbol, currencySymbol, regularMarketPrice, regularMarketChange } } = ticker;
-        return <TickerItem key={index} ticker={symbol} price={currencySymbol + regularMarketPrice} change={regularMarketChange.toFixed(2) + '%'} />
+        const { price: { symbol, currency, regularMarketPrice, regularMarketChange, shortName } } = ticker;
+        return <TickerItem key={index} ticker={shortName||symbol} price={regularMarketPrice}  currency={currency} change={regularMarketChange.toFixed(2) + '%'} />
     })
 };

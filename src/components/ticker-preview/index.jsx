@@ -16,7 +16,7 @@ function TickerPreview({ ticker, mousePosition }) {
                 const cachedStock = cache.getItem(ticker.symbol)
                 if (cachedStock) return setStock({ data: cachedStock, loading: false, error: null });
 
-                const response = await axios.get(`http://localhost:3003/api/v2/tickers/${ticker.symbol}`, {withCredentials: true});
+                const response = await axios.get(`http://localhost:3003/api/v2/tickers/${ticker.symbol}`, { withCredentials: true });
                 let data = response.data;
 
                 cache.setItem(ticker.symbol, data, 1000 * 60 * 60); // cache for 1 hour
@@ -46,17 +46,13 @@ function TickerPreview({ ticker, mousePosition }) {
                 <p>{price.currencySymbol} {Intl.NumberFormat().format(regularMarketPrice)}</p>
             </div>
             <div className={styles['ticker-preview-meta']}>
-                <div>
-                    <p>Industry: {summaryProfile?.industry || 'N/A'}</p>
-                    <p>Exchange: {price.exchangeName}</p>
-                   {summaryProfile?.website && <p>Website: <a href={summaryProfile.website} target="_blank" rel="noreferrer">{summaryProfile.website}</a></p>}
-                </div>
+                <p>Industry: {summaryProfile?.industry || 'N/A'}</p>
+                <p>Exchange: {price.exchangeName}</p>
+                {summaryProfile?.website && <p>Website: <a href={summaryProfile.website} target="_blank" rel="noreferrer">{summaryProfile.website}</a></p>}
 
-                <div>
-                    <p>Market Change: {regularMarketChange ? regularMarketChange.toFixed(3) + '%' : 'N/a'}</p>
-                    <p>Market Cap: {price.currencySymbol} {Intl.NumberFormat().format(marketCap)}</p>
-                    <p>Forward PE: {forwardPE}</p>
-                </div>
+                <p>Market Change: {regularMarketChange ? regularMarketChange.toFixed(3) + '%' : 'N/a'}</p>
+                <p>Market Cap: {price.currencySymbol} {Intl.NumberFormat().format(marketCap)}</p>
+                <p>Forward PE: {forwardPE}</p>
             </div>
         </div>
     )

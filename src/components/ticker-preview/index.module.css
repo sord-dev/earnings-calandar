@@ -1,10 +1,10 @@
 .ticker-preview {
-    width: 280px;
-    height: 200px;
+    width: 300px;
+    height: 220px;
 
     background-color: var(--color-primary);
     animation: fade-in 0.2s ease-in-out;
-    padding: 12px 8px;
+    padding: 6px 12px;
 
     z-index: 9999;
     pointer-events: none;
@@ -12,6 +12,7 @@
 
 .ticker-preview * {
     color: var(--color-secondary);
+    margin: 0;
 }
 
 .ticker-preview-title {
@@ -35,8 +36,10 @@
 
 .ticker-preview-meta {
     font-size: .7em;
-    max-height: 200px;
-    overflow-y: hidden;
+    
+    display: flex;
+    flex-direction: column;
+    
 }
 
 @keyframes fade-in {
