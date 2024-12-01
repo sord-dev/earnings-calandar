@@ -1,20 +1,22 @@
 import { useState, useEffect } from 'react';
 import styles from './index.module.css';
 
+import PropTypes from 'prop-types'
+
 export function SystemNotification({ message, timeout = 2000, type = 'info', clearNotification }) {
     const [visible, setVisible] = useState(true);
-    if(!message) return null;
-
+    
     useEffect(() => {
         const timer = setTimeout(() => {
             setVisible(false);
             // take the first message off the stack (needs fix)
             clearNotification();
         }, timeout); // Dismiss after 3 seconds
-
+        
         return () => clearTimeout(timer);
-    }, []);
-
+    }, [clearNotification, timeout]);
+    
+    if(!message) return null;
     if (!visible) return null;
 
     return (
@@ -22,6 +24,13 @@ export function SystemNotification({ message, timeout = 2000, type = 'info', cle
             {message}
         </div>
     );
+}
+
+SystemNotification.propTypes = {
+    message: PropTypes.string,
+    timeout: PropTypes.number,
+    type: PropTypes.string,
+    clearNotification: PropTypes.func
 }
 
 export const NotificationTrey = ({ messages, clearNotification }) => {
@@ -33,4 +42,10 @@ export const NotificationTrey = ({ messages, clearNotification }) => {
           ))}
       </div>
     )
+}
+
+
+NotificationTrey.propTypes = {
+    messages: PropTypes.array,
+    clearNotification: PropTypes.func
 }

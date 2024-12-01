@@ -26,10 +26,12 @@ function StockTable({ stocks = { data:[], total: 0 }, onStockClick = () => { }, 
       <div className={styles['trending-table']}>
         <div className={styles['table-header']}>
           <div>#</div>
+          <div>Logo</div>
           <div>Name</div>
           <div>Price</div>
           <div>Change</div>
           <div>Market Cap</div>
+          <div>Type</div>
         </div>
 
         {stocks.data.map((stock, index) => <TableCell key={stock.symbol} stock={stock} index={index + 1} onClick={onStockClick} onHover={onStockHover} pagination={pagination} />)}

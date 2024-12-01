@@ -1,11 +1,15 @@
-.ticker-carousel {
+.ticker-carousel,
+.ticker-carousel-loading {
     display: flex;
     overflow: hidden;
     position: relative;
-    justify-content: space-between;
+    justify-content: space-around;
 
     gap: 12px;
-    padding: 0px 12px;
+}
+
+.ticker-carousel-loading {
+    animation: loading 1s infinite;
 }
 
 .ticker {
@@ -13,10 +17,11 @@
     flex-direction: column;
     justify-content: space-between;
     border: 1px solid var(--color-primary);
+    background-color: var(--color-tertiary);
     padding: 8px;
     border-radius: 6px;
 
-    width: 120px;
+    width: 160px;
     height: 70px;
 }
 
@@ -24,4 +29,30 @@
     display: flex;
     justify-content: space-between;
     font-size: .8em;
+}
+
+.ticker-meta p {
+    font-size: .7em;
+}
+
+.ticker-meta div {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.ticker-meta div * {
+    margin: 0;
+}
+
+@keyframes loading {
+    0% {
+        opacity: .2;
+    }
+    50% {
+        opacity: .4;
+    }
+    100% {
+        opacity: .2;
+    }
 }
